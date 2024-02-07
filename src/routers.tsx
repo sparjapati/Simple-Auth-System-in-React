@@ -4,9 +4,11 @@ import React from "react";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 
+export const ROOT_PATH = '/home'
+
 const router = createBrowserRouter([
     {
-        path: '/',
+        path: ROOT_PATH,
         element: <ProtectedRoute><HomePage /></ProtectedRoute>,
     },
     {

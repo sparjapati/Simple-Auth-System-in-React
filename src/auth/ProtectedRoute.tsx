@@ -1,17 +1,26 @@
 import { PropsWithChildren, useEffect } from "react"
 import { useAuth } from "./AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { ROOT_PATH } from "../routers";
+
+export const REDIRECT_PARAM_KEY = "rdUrl";
 
 type ProtectedRouteProps = PropsWithChildren;
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
     const { user } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
-        console.log("checking user in ProtectedRoute: " + JSON.stringify(user))
         if (user === null || user === undefined) {
-            navigate('/signIn', { replace: true });
+            const completeLocation = `${location.pathname}${location.search}`
+            if (completeLocation !== ROOT_PATH) {
+                navigate(`/signIn?${REDIRECT_PARAM_KEY}=${completeLocation}`, { replace: true });
+            }
+            else {
+                navigate('/signIn', { replace: true });
+            }
         }
     }, [user, navigate]);
 

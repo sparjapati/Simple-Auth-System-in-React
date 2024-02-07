@@ -3,7 +3,7 @@ import User from '../types/User'
 import React from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 
-const KEY_USER_DETAILS = "user_details";
+const KEY_USER_DETAILS = "auth_details";
 
 type AuthContextProps = {
     user?: User
